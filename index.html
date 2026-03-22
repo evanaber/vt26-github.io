@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VictorThon 2026 Countdown</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #284C81;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .wrapper {
+      text-align: center;
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #F5E7A6;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .count {
+      background: #F5E7A6;
+      border-radius: 12px;
+      padding: 1.2rem 1rem;
+      min-width: 90px;
+      flex: 1;
+      max-width: 110px;
+    }
+
+    .digits {
+      display: block;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #284C81;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #284C81;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+    }
+
+    .separator {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #82C1E8;
+      align-self: center;
+      margin-bottom: 1.4rem;
+      opacity: 0.6;
+    }
+
+    .event-day {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #F5E7A6;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 400px) {
+      .count { min-width: 70px; padding: 1rem 0.6rem; }
+      .digits { font-size: 2rem; }
+      .separator { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <p class="title">Countdown to VictorThon 2026</p>
+
+    <div class="countdown" id="countdown">
+      <div class="count"><span class="digits" id="weeks">0</span><span class="label">Weeks</span></div>
+      <div class="separator">·</div>
+      <div class="count"><span class="digits" id="days">0</span><span class="label">Days</span></div>
+      <div class="separator">·</div>
+      <div class="count"><span class="digits" id="hours">0</span><span class="label">Hours</span></div>
+      <div class="separator">·</div>
+      <div class="count"><span class="digits" id="minutes">0</span><span class="label">Minutes</span></div>
+      <div class="separator">·</div>
+      <div class="count"><span class="digits" id="seconds">0</span><span class="label">Seconds</span></div>
+    </div>
+  </div>
+
+  <script>
+    const eventDate = new Date('2026-04-18T10:00:00');
+
+    function updateCountdown() {
+      const now = new Date();
+      const timeDiff = eventDate - now;
+
+      if (timeDiff <= 0) {
+        document.getElementById('countdown').innerHTML = '<div class="event-day">Happy VictorThon!</div>';
+        return;
+      }
+
+      const weeks   = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 7));
+      const days    = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      document.getElementById('weeks').textContent   = weeks;
+      document.getElementById('days').textContent    = days;
+      document.getElementById('hours').textContent   = hours;
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
