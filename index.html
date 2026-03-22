@@ -10,106 +10,94 @@
 
     body {
       font-family: 'Quicksand', sans-serif;
-      background: #284C81;
+      background: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 2rem;
+      padding: 1.5rem;
     }
 
     .wrapper {
       text-align: center;
       width: 100%;
-      max-width: 640px;
+      max-width: 660px;
+      background: rgba(40, 76, 129, 0.15);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
     }
 
     .title {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
-      color: #F5E7A6;
-      letter-spacing: 0.08em;
+      color: #284C81;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .countdown {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
     .count {
-      background: #F5E7A6;
-      border-radius: 12px;
-      padding: 1.2rem 1rem;
-      min-width: 90px;
+      border-radius: 8px;
+      overflow: hidden;
       flex: 1;
+      min-width: 85px;
       max-width: 110px;
     }
 
-    .digits {
-      display: block;
-      font-size: 2.6rem;
+    .card-top {
+      background: #82C1E8;
+      padding: 14px 8px 12px;
+      font-size: 2.4rem;
       font-weight: 700;
-      color: #284C81;
+      color: #F5E7A6;
       line-height: 1;
-      margin-bottom: 0.4rem;
     }
 
-    .label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #284C81;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      opacity: 0.7;
-    }
-
-    .separator {
-      font-size: 2.2rem;
+    .card-bot {
+      background: #284C81;
+      padding: 8px;
+      font-size: 0.65rem;
       font-weight: 700;
-      color: #82C1E8;
-      align-self: center;
-      margin-bottom: 1.4rem;
-      opacity: 0.6;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #F5E7A6;
     }
 
     .event-day {
       font-size: 2rem;
       font-weight: 700;
-      color: #F5E7A6;
-      margin-top: 1rem;
+      color: #284C81;
     }
 
-    @media (max-width: 400px) {
-      .count { min-width: 70px; padding: 1rem 0.6rem; }
-      .digits { font-size: 2rem; }
-      .separator { font-size: 1.6rem; }
+    @media (max-width: 420px) {
+      .card-top { font-size: 1.8rem; padding: 10px 6px; }
+      .count { min-width: 60px; }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <p class="title">Countdown to VictorThon 2026</p>
-
     <div class="countdown" id="countdown">
-      <div class="count"><span class="digits" id="weeks">0</span><span class="label">Weeks</span></div>
-      <div class="separator">·</div>
-      <div class="count"><span class="digits" id="days">0</span><span class="label">Days</span></div>
-      <div class="separator">·</div>
-      <div class="count"><span class="digits" id="hours">0</span><span class="label">Hours</span></div>
-      <div class="separator">·</div>
-      <div class="count"><span class="digits" id="minutes">0</span><span class="label">Minutes</span></div>
-      <div class="separator">·</div>
-      <div class="count"><span class="digits" id="seconds">0</span><span class="label">Seconds</span></div>
+      <div class="count"><div class="card-top" id="weeks">0</div><div class="card-bot">Weeks</div></div>
+      <div class="count"><div class="card-top" id="days">0</div><div class="card-bot">Days</div></div>
+      <div class="count"><div class="card-top" id="hours">0</div><div class="card-bot">Hours</div></div>
+      <div class="count"><div class="card-top" id="minutes">00</div><div class="card-bot">Minutes</div></div>
+      <div class="count"><div class="card-top" id="seconds">00</div><div class="card-bot">Seconds</div></div>
     </div>
   </div>
 
   <script>
     const eventDate = new Date('2026-04-18T10:00:00');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
 
     function updateCountdown() {
       const now = new Date();
@@ -129,8 +117,8 @@
       document.getElementById('weeks').textContent   = weeks;
       document.getElementById('days').textContent    = days;
       document.getElementById('hours').textContent   = hours;
-      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      document.getElementById('minutes').textContent = pad(minutes);
+      document.getElementById('seconds').textContent = pad(seconds);
     }
 
     setInterval(updateCountdown, 1000);
